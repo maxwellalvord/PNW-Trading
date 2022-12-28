@@ -1,4 +1,8 @@
-# Hydrogen Demo Store
+# PNW Trading
+
+## This is the test site for Pacific NorthWest Trading to demo functionality of Hydrogen/Shopify framework.
+
+Developer: Maxwell Alvord
 
 Hydrogen is a React framework and SDK that you can use to build fast and dynamic Shopify custom storefronts.
 
