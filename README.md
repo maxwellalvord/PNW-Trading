@@ -4,10 +4,6 @@ Hydrogen is a React framework and SDK that you can use to build fast and dynamic
 
 [Check out the docs](https://shopify.dev/custom-storefronts/hydrogen)
 
-[Run this template in JavaScript on StackBlitz](https://stackblitz.com/github/Shopify/hydrogen/tree/dist/templates/demo-store-js?file=package.json)
-
-[Run this template in JavaScript on StackBlitz](https://stackblitz.com/github/Shopify/hydrogen/tree/dist/templates/demo-store-js?file=package.json)
-
 ## Getting started
 
 **Requirements:**
@@ -15,11 +11,6 @@ Hydrogen is a React framework and SDK that you can use to build fast and dynamic
 - Node.js version 16.14.0 or higher
 - Yarn
 
-To create a new Hydrogen app, run:
-
-```bash
-npm init @shopify/hydrogen
-```
 
 ## Running the dev server
 
@@ -30,7 +21,38 @@ npm install
 npm run dev
 ```
 
-Remember to update `hydrogen.config.js` with your shop's domain and Storefront API token!
+Remember to add a `hydrogen.config.js` file with your shop's domain and Storefront API token!
+
+```
+import {defineConfig, CookieSessionStorage} from '@shopify/hydrogen/config';
+
+export default defineConfig({
+  shopify: {
+    defaultCountryCode: 'US',
+    defaultLanguageCode: 'EN',
+    storeDomain:
+      // @ts-ignore
+      Oxygen?.env?.PUBLIC_STORE_DOMAIN || '[YOURDOMAIN].myshopify.com',
+    storefrontToken:
+      // @ts-ignore
+      Oxygen?.env?.PUBLIC_STOREFRONT_API_TOKEN ||
+      '[YOURAPITOKEN]',
+    privateStorefrontToken:
+      // @ts-ignore
+      Oxygen?.env?.PRIVATE_STOREFRONT_API_TOKEN,
+    storefrontApiVersion: '2022-07',
+    // @ts-ignore
+    storefrontId: Oxygen?.env?.PUBLIC_STOREFRONT_ID,
+  },
+  session: CookieSessionStorage('__session', {
+    path: '/',
+    httpOnly: true,
+    secure: import.meta.env.PROD,
+    sameSite: 'Strict',
+    maxAge: 60 * 60 * 24 * 30,
+  }),
+});
+```
 
 ## Building for production
 
